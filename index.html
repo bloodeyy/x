@@ -1,34 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bloodey</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      background:#0b0b0f;
-      color:#fff;
-      font-family: Arial, sans-serif;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      margin:0;
-    }
-    .box {
-      text-align:center;
-    }
-    a {
-      color:#7aa2ff;
-      text-decoration:none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@user • bio</title>
+    <meta name="description" content="Personal Bio Page">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Core Settings --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow: hidden; /* Hide scrollbars */
+            /* cursor: none; REMOVED CUSTOM CURSOR */
+        }
+
+        /* --- Background Animation --- */
+        .bg-animate {
+            background: linear-gradient(-45deg, #000000, #1a1a1a, #0f0f0f, #2b2b2b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Glassmorphism Card --- */
+        .glass-card {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Text Glow Effects --- */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .username-sparkle {
+            background: linear-gradient(to right, #fff, #a5a5a5, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* --- Tooltip --- */
+        .tooltip {
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            padding: 5px 10px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .group:hover .tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* --- Scanline Effect (Optional Aesthetic) --- */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            position: fixed;
+            top: 0; right: 0; bottom: 0; left: 0;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* --- Typewriter Cursor --- */
+        .cursor-type {
+            display: inline-block;
+            width: 2px;
+            background-color: white;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
 </head>
-<body>
-  <div class="box">
-    <h1>Bloodey</h1>
-    <p>Welcome to my site</p>
-    <a href="https://github.com/bloodey">GitHub</a>
-  </div>
+<body class="bg-animate h-screen w-screen flex items-center justify-center">
+
+    <!-- Removed Custom Cursor Elements -->
+
+    <!-- CRT Scanline Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Audio Element (Hidden) -->
+    <!-- Replace src with your direct mp3 link -->
+    <audio id="bg-music" loop>
+        <source src="" type="audio/mpeg"> 
+    </audio>
+
+    <!-- Overlay: Click to Enter -->
+    <div id="overlay" class="fixed inset-0 z-[100] bg-black flex items-center justify-center cursor-pointer transition-opacity duration-1000">
+        <div class="text-center">
+            <p class="text-white text-opacity-80 text-sm tracking-[0.3em] uppercase animate-pulse font-mono">
+                [ click to enter ]
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden relative z-10 w-full max-w-md p-4">
+        
+        <!-- Profile Card -->
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden border border-white/10 fade-in" style="animation-delay: 0.2s;">
+            
+            <!-- Background Banner in Card (Optional) -->
+            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white/5 to-transparent"></div>
+
+            <!-- Profile Header -->
+            <div class="relative z-10 flex flex-col items-center">
+                <!-- Avatar -->
+                <div class="relative group">
+                    <div class="w-24 h-24 rounded-full p-1 border border-white/20 bg-black/50 overflow-hidden relative transition-transform duration-500 hover:scale-105">
+                        <!-- Replace src with your profile picture URL -->
+                        <img src="https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg" 
+                             alt="Profile" 
+                             class="w-full h-full object-cover rounded-full filter brightness-90 group-hover:brightness-110 transition-all">
+                    </div>
+                    <!-- Online Status Dot -->
+                    <div class="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse shadow-[0_0_10px_#22c55e]"></div>
+                </div>
+
+                <!-- Username & Badges -->
+                <div class="mt-4 text-center">
+                    <h1 class="text-3xl font-bold username-sparkle flex items-center justify-center gap-2">
+                        user
+                        <!-- Verified Badge -->
+                        <i class="fas fa-certificate text-blue-400 text-lg shadow-blue-500/50 drop-shadow-lg" title="Verified"></i>
+                    </h1>
+                    
+                    <!-- UID / Tag -->
+                    <div class="mt-1 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                        <i class="fas fa-fingerprint text-xs text-gray-400"></i>
+                        <span class="font-mono text-xs text-gray-300">UID: 1337</span>
+                    </div>
+                </div>
+
+                <!-- Typewriter Bio -->
+                <div class="mt-4 h-6 text-sm text-gray-300 font-mono text-center">
+                    <span id="typewriter"></span><span class="cursor-type">&nbsp;</span>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-6"></div>
+
+            <!-- Social Links Grid - UPDATED TO 3 COLUMNS -->
+            <div class="grid grid-cols-3 gap-4 relative z-10">
+                
+                <!-- Discord -->
+                <a href="#" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1" onclick="copyToClipboard('User#0000')">
+                    <i class="fab fa-discord text-2xl text-gray-400 group-hover:text-[#5865F2] transition-colors drop-shadow-md"></i>
+                    <span class="tooltip">User#0000</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fab fa-instagram text-2xl text-gray-400 group-hover:text-[#E1306C] transition-colors drop-shadow-md"></i>
+                    <span class="tooltip">Instagram</span>
+                </a>
+
+                <!-- Spotify / Last.fm -->
+                <a href="https://spotify.com" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fab fa-spotify text-2xl text-gray-400 group-hover:text-[#1DB954] transition-colors drop-shadow-md"></i>
+                    <span class="tooltip">Spotify</span>
+                </a>
+                
+                <!-- Telegram -->
+                <a href="https://t.me" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fab fa-telegram text-2xl text-gray-400 group-hover:text-[#0088cc] transition-colors drop-shadow-md"></i>
+                    <span class="tooltip">Telegram</span>
+                </a>
+
+                <!-- Github -->
+                <a href="https://github.com" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fab fa-github text-2xl text-gray-400 group-hover:text-white transition-colors drop-shadow-md"></i>
+                    <span class="tooltip">Github</span>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:email@example.com" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
+                    <i class="fas fa-envelope text-2xl text-gray-400 group-hover:text-red-400 transition-colors drop-shadow-md"></i>
+                    <span class="tooltip">Email</span>
+                </a>
+
+            </div>
+
+            <!-- Music Player Widget (Visual Only) -->
+            <div class="mt-6 p-3 bg-black/20 rounded-lg border border-white/5 flex items-center gap-3">
+                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center text-xs">
+                    <i class="fas fa-music text-gray-500"></i>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="text-xs font-bold text-white truncate">Now Playing</p>
+                    <p class="text-[10px] text-gray-400 truncate">Song Name - Artist</p>
+                </div>
+                <!-- Fake Equalizer -->
+                <div class="flex items-end gap-[2px] h-4">
+                    <div class="w-[2px] bg-white animate-pulse h-full"></div>
+                    <div class="w-[2px] bg-white animate-pulse h-2/3" style="animation-delay: 0.1s"></div>
+                    <div class="w-[2px] bg-white animate-pulse h-3/4" style="animation-delay: 0.2s"></div>
+                    <div class="w-[2px] bg-white animate-pulse h-1/2" style="animation-delay: 0.3s"></div>
+                </div>
+            </div>
+
+            <!-- Footer Stats -->
+            <div class="mt-6 flex justify-between items-center text-[10px] text-gray-500 font-mono uppercase tracking-wider">
+                <span class="flex items-center gap-1"><i class="fas fa-eye"></i> <span id="view-count">0</span></span>
+                <span>© 2024</span>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        /* --- Audio & Enter Screen --- */
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.getElementById('main-content');
+        const bgMusic = document.getElementById('bg-music');
+        
+        // Volume setting (lowered for better UX)
+        bgMusic.volume = 0.3;
+
+        overlay.addEventListener('click', () => {
+            // Fade out overlay
+            overlay.style.opacity = '0';
+            
+            // Try to play music
+            bgMusic.play().catch(error => {
+                console.log("Audio play failed (browser policy):", error);
+            });
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                
+                // Start Typewriter after entering
+                startTypewriter();
+                // Increment view count animation
+                incrementViews();
+            }, 500);
+        });
+
+        /* --- Typewriter Effect --- */
+        const texts = ["Developer", "Designer", "Gamer", "Rich", "Pro"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+        
+        function startTypewriter() {
+            const typeElement = document.getElementById('typewriter');
+            
+            (function type() {
+                if (count === texts.length) {
+                    count = 0;
+                }
+                currentText = texts[count];
+                letter = currentText.slice(0, ++index);
+                
+                typeElement.textContent = letter;
+                
+                if (letter.length === currentText.length) {
+                    count++;
+                    index = 0;
+                    setTimeout(type, 2000); // Wait before deleting/next word
+                } else {
+                    setTimeout(type, 100); // Typing speed
+                }
+            })();
+        }
+
+        /* --- View Count Animation --- */
+        function incrementViews() {
+            const counter = document.getElementById('view-count');
+            let views = 0;
+            const target = 1337; // Fake view count
+            
+            const interval = setInterval(() => {
+                views += Math.floor(Math.random() * 50);
+                if (views >= target) {
+                    views = target;
+                    clearInterval(interval);
+                }
+                counter.innerText = views;
+            }, 50);
+        }
+
+        /* --- Clipboard Function --- */
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard: ' + text);
+            });
+        }
+    </script>
 </body>
 </html>
+
+
