@@ -1,357 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@bloodeyy • bio</title>
-    <meta name="description" content="Personal Bio Page">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@gotstars Dynamic Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b0c15; /* Absolute Dark Background */
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.08) 0px, transparent 50%);
+    }
 
-    <style>
-        /* --- Core Settings --- */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #050505;
-            color: #ffffff;
-            overflow: hidden; /* Hide scrollbars */
-            /* cursor: none; REMOVED CUSTOM CURSOR */
-        }
+    .font-title {
+      font-family: 'Space Grotesk', sans-serif;
+    }
 
-        /* --- Background Animation --- */
-        .bg-animate {
-            background: linear-gradient(-45deg, #000000, #1a1a1a, #0f0f0f, #2b2b2b);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- Glassmorphism Card --- */
-        .glass-card {
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
-        }
-
-        /* --- Animations --- */
-        .fade-in {
-            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* --- Text Glow Effects --- */
-        .text-glow {
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-        
-        .username-sparkle {
-            background: linear-gradient(to right, #fff, #a5a5a5, #fff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            animation: shine 3s linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
-        }
-
-        /* --- Tooltip --- */
-        .tooltip {
-            position: absolute;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            padding: 5px 10px;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 4px;
-            font-size: 0.75rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .group:hover .tooltip {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* --- Scanline Effect (Optional Aesthetic) --- */
-        .scanlines {
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0) 50%,
-                rgba(0,0,0,0.2) 50%,
-                rgba(0,0,0,0.2)
-            );
-            background-size: 100% 4px;
-            position: fixed;
-            top: 0; right: 0; bottom: 0; left: 0;
-            pointer-events: none;
-            z-index: 50;
-        }
-
-        /* --- Typewriter Cursor --- */
-        .cursor-type {
-            display: inline-block;
-            width: 2px;
-            background-color: white;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    </style>
+    /* Scrollbar Style Customizations */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f111a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8b5cf6;
+    }
+  </style>
 </head>
-<body class="bg-animate h-screen w-screen flex items-center justify-center">
+<body class="text-gray-100 min-h-screen pb-12 transition-all">
 
-    <!-- Removed Custom Cursor Elements -->
+  <div class="max-w-md mx-auto px-4 pt-6 space-y-6">
 
-    <!-- CRT Scanline Overlay -->
-    <div class="scanlines"></div>
+    <div class="bg-[#121424]/90 border border-gray-800 rounded-3xl p-5 shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 opacity-60"></div>
+      
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-xl font-bold text-white tracking-tight font-title flex items-center gap-1.5">
+            @gotstars portfolio
+          </h1>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-[10px] text-gray-400" id="connected-user-text">Connected as gotstars</span>
+          </div>
+        </div>
 
-    <!-- Audio Element (Hidden) -->
-    <!-- Replace src with your direct mp3 link -->
-    <audio id="bg-music" loop>
-        <source src="https://cdn.discordapp.com/attachments/1451870544193523869/1453468231288487937/Prateek_Kuhad_-_Co2_Ringtone_____Download_Link_256k.mp3?ex=694d8f46&is=694c3dc6&hm=94b9d9cd8fdef314b0423abbeff93fb1850e47b3231376e8647fa8a42441af16&" type="audio/mpeg"> 
-    </audio>
+        <a id="profile-redirect-btn" href="#" target="_blank" 
+           class="px-4 py-2 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 hover:from-purple-600 hover:to-indigo-600 border border-purple-500/30 hover:border-transparent rounded-xl text-xs font-semibold text-purple-300 hover:text-white transition-all duration-300 flex items-center gap-1 shadow-lg shadow-purple-500/5">
+          <i class="fa-solid fa-user-gear text-[10px]"></i> Profile
+        </a>
+      </div>
+    </div>
 
-    <!-- Overlay: Click to Enter -->
-    <div id="overlay" class="fixed inset-0 z-[100] bg-black flex items-center justify-center cursor-pointer transition-opacity duration-1000">
-        <div class="text-center">
-            <p class="text-white text-opacity-80 text-sm tracking-[0.3em] uppercase animate-pulse font-mono">
-                [ click to enter ]
-            </p>
+
+    <div class="bg-black border border-gray-800 rounded-3xl overflow-hidden shadow-2xl relative">
+      <div id="profile-banner-bg" class="h-28 bg-cover bg-center relative transition-all duration-500">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+        <div class="absolute top-3 right-3 flex gap-1.5">
+          <span class="text-[10px] bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full text-purple-300 border border-purple-500/20 font-mono">gotstars</span>
+        </div>
+      </div>
+
+      <div class="px-5 pb-5 relative">
+        <div class="flex justify-between items-end -mt-10 mb-4 relative z-10">
+          <div class="relative">
+            <img id="profile-avatar" src="" alt="Discord Avatar" 
+              class="w-20 h-20 rounded-full border-4 border-black object-cover shadow-xl bg-gray-900">
+            <span id="profile-status-indicator" class="absolute bottom-1 right-1 w-5 h-5 rounded-full border-4 border-black" title="Status"></span>
+          </div>
+          
+          <div class="flex items-center gap-1.5 bg-black/60 border border-gray-800/80 px-2.5 py-1.5 rounded-full backdrop-blur-md" id="profile-badges-container">
+            </div>
+        </div>
+
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <h2 class="text-xl font-bold text-white tracking-tight" id="profile-display-name">star</h2>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <p class="text-xs text-purple-400 font-medium" id="profile-username">gotstars • ank!t</p>
+            <span class="text-xs text-pink-400 font-bold tracking-wide drop-shadow-[0_0_6px_rgba(244,114,182,0.4)] animate-pulse" id="profile-heart-tag">[❤️ us]</span>
+          </div>
+        </div>
+
+        <div class="mt-4 bg-[#090a12] border border-gray-900 rounded-2xl p-3 flex items-center gap-2.5">
+          <span class="text-base text-purple-400" id="profile-status-emoji">☁️</span>
+          <span class="text-xs text-gray-300 font-medium italic" id="profile-status-text">..vapeholic!</span>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-900">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1.5">About Me</h3>
+          <p class="text-xs text-gray-300 leading-relaxed" id="profile-bio"></p>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-900">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Connections</h3>
+          <div class="grid grid-cols-1" id="profile-connections-grid">
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-900 space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500">Live Activity</h3>
+          
+          <div class="bg-[#090a12] border border-purple-900/10 rounded-2xl p-3.5" id="competing-panel">
+            <span class="text-[9px] uppercase font-bold text-purple-400 tracking-wider inline-block mb-2" id="activity-type">Competing in</span>
+            <div class="flex gap-3">
+              <img id="activity-image" src="" alt="Activity Image" 
+                class="w-12 h-12 rounded-xl object-cover shadow-md bg-gray-900">
+              <div class="space-y-0.5">
+                <h4 class="text-xs font-bold text-white" id="activity-name">bloodeyy</h4>
+                <p class="text-[11px] text-gray-400" id="activity-state"></p>
+                <p class="text-[11px] text-gray-500" id="activity-details"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#090a12] border border-emerald-950/10 rounded-2xl p-3.5" id="spotify-panel">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-[9px] uppercase font-bold text-emerald-400 tracking-wider flex items-center gap-1">
+                <i class="fa-brands fa-spotify text-xs"></i> Listening to Spotify
+              </span>
+              <span class="text-[9px] text-emerald-400 font-mono animate-pulse">Live</span>
+            </div>
+            <div class="flex gap-3">
+              <img id="spotify-album-art" src="" alt="Album Art" 
+                class="w-12 h-12 rounded-xl object-cover shadow-md bg-gray-900">
+              <div class="flex-1 min-w-0">
+                <h4 class="text-xs font-bold text-white truncate" id="spotify-track"></h4>
+                <p class="text-[11px] text-gray-400 truncate" id="spotify-artist"></p>
+                
+                <div class="mt-2 space-y-1">
+                  <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                    <div id="spotify-progress" class="bg-emerald-500 h-1 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                  </div>
+                  <div class="flex justify-between text-[9px] text-gray-500 font-mono">
+                    <span id="spotify-time-elapsed">00:00</span>
+                    <span id="spotify-time-total">00:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="bg-[#121424] border border-gray-800 rounded-3xl p-5 shadow-2xl space-y-4">
+      <div class="text-center">
+        <h3 class="text-base font-extrabold tracking-tight text-white font-title bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+          love from gotstars
+        </h3>
+        <p class="text-[9px] text-gray-500 uppercase tracking-widest mt-0.5">Let's connect & build projects together</p>
+      </div>
+
+      <div class="space-y-2.5" id="social-rows-list">
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main id="main-content" class="hidden relative z-10 w-full max-w-md p-4">
-        
-        <!-- Profile Card -->
-        <div class="glass-card rounded-2xl p-8 relative overflow-hidden border border-white/10 fade-in" style="animation-delay: 0.2s;">
-            
-            <!-- Background Banner in Card (Optional) -->
-            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white/5 to-transparent"></div>
+  </div>
 
-            <!-- Profile Header -->
-            <div class="relative z-10 flex flex-col items-center">
-                <!-- Avatar -->
-                <div class="relative group">
-                    <div class="w-24 h-24 rounded-full p-1 border border-white/20 bg-black/50 overflow-hidden relative transition-transform duration-500 hover:scale-105">
-                        <!-- Replace src with your profile picture URL -->
-                        <img src="https://cdn.discordapp.com/avatars/1243895854188859523/0fc595bc2da722770a63bc48282ca1d3.webp?size=2048" 
-                             alt="Profile" 
-                             class="w-full h-full object-cover rounded-full filter brightness-90 group-hover:brightness-110 transition-all">
-                    </div>
-                    <!-- Online Status Dot -->
-                    <div class="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse shadow-[0_0_10px_#22c55e]"></div>
-                </div>
+  <div id="toast-notif" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[#17192c] border border-purple-500/30 text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50 max-w-sm w-[90%]">
+    <div class="bg-purple-600/20 text-purple-400 p-2 rounded-xl">
+      <i class="fa-solid fa-circle-info text-sm"></i>
+    </div>
+    <div class="flex-1">
+      <p id="toast-message" class="font-medium text-gray-300"></p>
+    </div>
+    <button onclick="dismissToast()" class="text-gray-400 hover:text-white">
+      <i class="fa-solid fa-xmark text-xs"></i>
+    </button>
+  </div>
 
-                <!-- Username & Badges -->
-                <div class="mt-4 text-center">
-                    <h1 class="text-3xl font-bold username-sparkle flex items-center justify-center gap-2">
-                        bloodeyy
-                        <!-- Verified Badge -->
-                        <i class="fas fa-certificate text-blue-400 text-lg shadow-blue-500/50 drop-shadow-lg" title="Verified"></i>
-                    </h1>
-                    
-                    <!-- UID / Tag -->
-                    <div class="mt-1 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-                        <i class="fas fa-fingerprint text-xs text-gray-400"></i>
-                        <span class="font-mono text-xs text-gray-300">tag: her.ankit</span>
-                    </div>
-                </div>
+  <script>
+    let activeConfig = null;
+    let spotifySecondsCounter = 0;
+    let spotifyTickerInterval = null;
 
-                <!-- Typewriter Bio -->
-                <div class="mt-4 h-6 text-sm text-gray-300 font-mono text-center">
-                    <span id="typewriter"></span><span class="cursor-type">&nbsp;</span>
-                </div>
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchConfigProperties();
+    });
+
+    async function fetchConfigProperties() {
+      try {
+        const res = await fetch('/api/config');
+        if (res.ok) {
+          activeConfig = await res.json();
+          renderInterface();
+        } else {
+          showToast("Server se config load karne me issue aaya. Fallback load ho rha hai!");
+          loadFallbackHardcoded();
+        }
+      } catch (err) {
+        console.warn("Express server active nahi hai, local mock run kiya jaa rha hai.", err);
+        loadFallbackHardcoded();
+      }
+    }
+
+    function loadFallbackHardcoded() {
+      activeConfig = {
+        "appId": "gotstars-portfolio",
+        "controller": {
+          "title": "@gotstars Portfolio Controller",
+          "username": "gotstars",
+          "statusBadge": "Connected",
+          "profileRedirect": "https://discord.gg/vapes"
+        },
+        "profile": {
+          "displayName": "star",
+          "username": "gotstars • ank!t",
+          "usHeartTag": "[❤️ us]",
+          "avatarUrl": "https://i.imgur.com/vA1W8YQ.jpg",
+          "bannerUrl": "https://i.imgur.com/vA1W8YQ.jpg",
+          "statusEmoji": "☁️",
+          "statusText": "..vapeholic!",
+          "statusIndicator": "idle",
+          "bio": "I want to become one of the stars. Crafting clean web design aesthetics, premium bot systems, and dynamic user interfaces.",
+          "badges": [
+            { "icon": "fa-solid fa-bolt", "color": "text-pink-400", "title": "Discord Nitro" },
+            { "icon": "fa-solid fa-shield-halved", "color": "text-purple-400", "title": "HypeSquad Bravery" },
+            { "icon": "fa-solid fa-compact-disc", "color": "text-emerald-400", "title": "Active Developer" },
+            { "icon": "fa-solid fa-crown", "color": "text-amber-400", "title": "Server Founder" }
+          ],
+          "connections": [
+            { "name": "Status", "icon": "fa-solid fa-fan", "color": "text-blue-400", "value": "Vaping" }
+          ]
+        },
+        "activity": {
+          "type": "Competing in",
+          "name": "bloodeyy",
+          "state": "Working on custom systems",
+          "details": "Loving gotstars",
+          "imageUrl": "https://i.imgur.com/vA1W8YQ.jpg"
+        },
+        "spotify": {
+          "track": "Iss Tarah",
+          "artist": "Chaar Diwaari, Sonu Nigam",
+          "albumArt": "https://i.imgur.com/39N9rUq.jpg",
+          "durationSeconds": 323,
+          "elapsedSeconds": 44
+        },
+        "socials": [
+          { "name": "GitHub Profile", "url": "https://github.com", "icon": "fa-brands fa-github", "color": "text-white" },
+          { "name": "Discord Server", "url": "https://discord.gg/vapes", "icon": "fa-brands fa-discord", "color": "text-[#5865F2]" },
+          { "name": "Telegram Link", "url": "https://t.me/bloodeyyy", "icon": "fa-brands fa-telegram", "color": "text-[#0088cc]" },
+          { "name": "Instagram Profile", "url": "https://instagram.com", "icon": "fa-brands fa-instagram", "color": "text-[#E1306C]" },
+          { "name": "YouTube Channel", "url": "https://youtube.com", "icon": "fa-brands fa-youtube", "color": "text-[#FF0000]" }
+        ]
+      };
+      renderInterface();
+    }
+
+    function renderInterface() {
+      if (!activeConfig) return;
+
+      // 1. Controller Container Variables
+      document.getElementById('connected-user-text').innerText = `Connected as ${activeConfig.controller.username}`;
+      document.getElementById('profile-redirect-btn').href = activeConfig.controller.profileRedirect;
+
+      // Dynamic Banner background assignment
+      if(activeConfig.profile.bannerUrl) {
+         document.getElementById('profile-banner-bg').style.backgroundImage = `url('${activeConfig.profile.bannerUrl}')`;
+      }
+
+      // 2. Profile Details Configuration
+      document.getElementById('profile-avatar').src = activeConfig.profile.avatarUrl;
+      document.getElementById('profile-display-name').innerText = activeConfig.profile.displayName;
+      document.getElementById('profile-username').innerText = activeConfig.profile.username;
+      document.getElementById('profile-heart-tag').innerText = activeConfig.profile.usHeartTag || '[❤️ us]';
+      document.getElementById('profile-status-emoji').innerText = activeConfig.profile.statusEmoji;
+      document.getElementById('profile-status-text').innerText = activeConfig.profile.statusText;
+      document.getElementById('profile-bio').innerText = activeConfig.profile.bio;
+
+      // Status indicator update
+      const statusElement = document.getElementById('profile-status-indicator');
+      statusElement.className = "absolute bottom-1 right-1 w-5 h-5 rounded-full border-4 border-black";
+      if (activeConfig.profile.statusIndicator === 'online') {
+        statusElement.classList.add('bg-emerald-500');
+      } else if (activeConfig.profile.statusIndicator === 'idle') {
+        statusElement.classList.add('bg-amber-500');
+      } else if (activeConfig.profile.statusIndicator === 'dnd') {
+        statusElement.classList.add('bg-rose-500');
+      } else {
+        statusElement.classList.add('bg-gray-500');
+      }
+
+      // Render Badges
+      const badgesWrapper = document.getElementById('profile-badges-container');
+      badgesWrapper.innerHTML = '';
+      activeConfig.profile.badges.forEach(badge => {
+        const icon = document.createElement('i');
+        icon.className = `${badge.icon} ${badge.color} text-xs`;
+        icon.title = badge.title;
+        badgesWrapper.appendChild(icon);
+      });
+
+      // Render Connections
+      const connectionsGrid = document.getElementById('profile-connections-grid');
+      connectionsGrid.innerHTML = '';
+      activeConfig.profile.connections.forEach(conn => {
+        const card = document.createElement('div');
+        card.className = "bg-[#090a12] border border-gray-900 px-3 py-2.5 rounded-xl flex items-center gap-3";
+        card.innerHTML = `
+          <i class="${conn.icon} ${conn.color} text-sm"></i>
+          <div class="truncate">
+            <span class="text-[8px] text-gray-500 uppercase font-bold tracking-tight block">${conn.name}</span>
+            <span class="text-xs text-white truncate font-medium block">${conn.value}</span>
+          </div>
+        `;
+        connectionsGrid.appendChild(card);
+      });
+
+      // Render General Custom Activity
+      document.getElementById('activity-type').innerText = activeConfig.activity.type;
+      document.getElementById('activity-name').innerText = activeConfig.activity.name;
+      document.getElementById('activity-state').innerText = activeConfig.activity.state;
+      document.getElementById('activity-details').innerText = activeConfig.activity.details;
+      document.getElementById('activity-image').src = activeConfig.activity.imageUrl;
+
+      // Render Spotify Values
+      document.getElementById('spotify-album-art').src = activeConfig.spotify.albumArt;
+      document.getElementById('spotify-track').innerText = activeConfig.spotify.track;
+      document.getElementById('spotify-artist').innerText = activeConfig.spotify.artist;
+      document.getElementById('spotify-time-total').innerText = formatTimeDuration(activeConfig.spotify.durationSeconds);
+      spotifySecondsCounter = activeConfig.spotify.elapsedSeconds;
+      
+      startSpotifySimulation();
+
+      // 3. Social Rows List
+      const socialLinesWrapper = document.getElementById('social-rows-list');
+      socialLinesWrapper.innerHTML = '';
+      activeConfig.socials.forEach(social => {
+        const item = document.createElement('a');
+        item.href = social.url;
+        item.target = '_blank';
+        item.className = "group flex items-center justify-between bg-[#181a30]/60 hover:bg-[#181a30] border border-gray-800/60 hover:border-purple-500/30 px-4 py-3 rounded-2xl transition-all duration-300 cursor-pointer";
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-gray-950/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="${social.icon} text-sm ${social.color}"></i>
             </div>
+            <span class="text-xs font-semibold text-gray-300 group-hover:text-white transition-colors">${social.name}</span>
+          </div>
+          <span class="text-purple-400 group-hover:text-purple-300 font-extrabold text-sm transition-transform duration-300 group-hover:translate-x-1.5">
+            》
+          </span>
+        `;
+        socialLinesWrapper.appendChild(item);
+      });
+    }
 
-            <!-- Divider -->
-            <div class="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-6"></div>
+    function startSpotifySimulation() {
+      if (spotifyTickerInterval) clearInterval(spotifyTickerInterval);
 
-            <!-- Social Links Grid - UPDATED TO 3 COLUMNS -->
-            <div class="grid grid-cols-3 gap-4 relative z-10">
-                
-                <!-- Discord -->
-                <a href="#" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1" onclick="copyToClipboard('her.ankit')">
-                    <i class="fab fa-discord text-2xl text-gray-400 group-hover:text-[#5865F2] transition-colors drop-shadow-md"></i>
-                    <span class="tooltip">her.ankit</span>
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://instagram.com" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
-                    <i class="fab fa-instagram text-2xl text-gray-400 group-hover:text-[#E1306C] transition-colors drop-shadow-md"></i>
-                    <span class="tooltip">Instagram</span>
-                </a>
-
-                <!-- Spotify / Last.fm -->
-                <a href="https://spotify.com" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
-                    <i class="fab fa-spotify text-2xl text-gray-400 group-hover:text-[#1DB954] transition-colors drop-shadow-md"></i>
-                    <span class="tooltip">Spotify</span>
-                </a>
-                
-                <!-- Telegram -->
-                <a href="https://t.me" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
-                    <i class="fab fa-telegram text-2xl text-gray-400 group-hover:text-[#0088cc] transition-colors drop-shadow-md"></i>
-                    <span class="tooltip">Telegram</span>
-                </a>
-
-                <!-- Github -->
-                <a href="https://github.com" target="_blank" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
-                    <i class="fab fa-github text-2xl text-gray-400 group-hover:text-white transition-colors drop-shadow-md"></i>
-                    <span class="tooltip">Github</span>
-                </a>
-
-                <!-- Email -->
-                <a href="mailto:email@example.com" class="group relative flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1">
-                    <i class="fas fa-envelope text-2xl text-gray-400 group-hover:text-red-400 transition-colors drop-shadow-md"></i>
-                    <span class="tooltip">Email</span>
-                </a>
-
-            </div>
-
-            <!-- Music Player Widget (Visual Only) -->
-            <div class="mt-6 p-3 bg-black/20 rounded-lg border border-white/5 flex items-center gap-3">
-                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center text-xs">
-                    <i class="fas fa-music text-gray-500"></i>
-                </div>
-                <div class="flex-1 overflow-hidden">
-                    <p class="text-xs font-bold text-white truncate">Now Playing</p>
-                    <p class="text-[10px] text-gray-400 truncate">Song Name - Artist</p>
-                </div>
-                <!-- Fake Equalizer -->
-                <div class="flex items-end gap-[2px] h-4">
-                    <div class="w-[2px] bg-white animate-pulse h-full"></div>
-                    <div class="w-[2px] bg-white animate-pulse h-2/3" style="animation-delay: 0.1s"></div>
-                    <div class="w-[2px] bg-white animate-pulse h-3/4" style="animation-delay: 0.2s"></div>
-                    <div class="w-[2px] bg-white animate-pulse h-1/2" style="animation-delay: 0.3s"></div>
-                </div>
-            </div>
-
-            <!-- Footer Stats -->
-            <div class="mt-6 flex justify-between items-center text-[10px] text-gray-500 font-mono uppercase tracking-wider">
-                <span class="flex items-center gap-1"><i class="fas fa-eye"></i> <span id="view-count">0</span></span>
-                <span>© 2025</span>
-            </div>
-
-        </div>
-    </main>
-
-    <script>
-        /* --- Audio & Enter Screen --- */
-        const overlay = document.getElementById('overlay');
-        const mainContent = document.getElementById('main-content');
-        const bgMusic = document.getElementById('bg-music');
-        
-        // Volume setting (lowered for better UX)
-        bgMusic.volume = 0.3;
-
-        overlay.addEventListener('click', () => {
-            // Fade out overlay
-            overlay.style.opacity = '0';
-            
-            // Try to play music
-            bgMusic.play().catch(error => {
-                console.log("Audio play failed (browser policy):", error);
-            });
-
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                mainContent.classList.remove('hidden');
-                
-                // Start Typewriter after entering
-                startTypewriter();
-                // Increment view count animation
-                incrementViews();
-            }, 500);
-        });
-
-        /* --- Typewriter Effect --- */
-        const texts = ["Developer", "Designer", "Gamer", "Seller", "Nuker"];
-        let count = 0;
-        let index = 0;
-        let currentText = "";
-        let letter = "";
-        
-        function startTypewriter() {
-            const typeElement = document.getElementById('typewriter');
-            
-            (function type() {
-                if (count === texts.length) {
-                    count = 0;
-                }
-                currentText = texts[count];
-                letter = currentText.slice(0, ++index);
-                
-                typeElement.textContent = letter;
-                
-                if (letter.length === currentText.length) {
-                    count++;
-                    index = 0;
-                    setTimeout(type, 2000); // Wait before deleting/next word
-                } else {
-                    setTimeout(type, 100); // Typing speed
-                }
-            })();
+      spotifyTickerInterval = setInterval(() => {
+        if (spotifySecondsCounter >= activeConfig.spotify.durationSeconds) {
+          spotifySecondsCounter = 0;
+        } else {
+          spotifySecondsCounter++;
         }
 
-        /* --- View Count Animation --- */
-        function incrementViews() {
-            const counter = document.getElementById('view-count');
-            let views = 0;
-            const target = 69; // Fake view count
-            
-            const interval = setInterval(() => {
-                views += Math.floor(Math.random() * 50);
-                if (views >= target) {
-                    views = target;
-                    clearInterval(interval);
-                }
-                counter.innerText = views;
-            }, 50);
-        }
+        const progressPercent = (spotifySecondsCounter / activeConfig.spotify.durationSeconds) * 100;
+        document.getElementById('spotify-progress').style.width = `${progressPercent}%`;
+        document.getElementById('spotify-time-elapsed').innerText = formatTimeDuration(spotifySecondsCounter);
+      }, 1000);
+    }
 
-        /* --- Clipboard Function --- */
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Copied to clipboard: ' + text);
-            });
-        }
-    </script>
+    function formatTimeDuration(totalSeconds) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const remainingSecs = totalSeconds % 60;
+      return `${minutes.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast-notif');
+      document.getElementById('toast-message').innerText = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        dismissToast();
+      }, 4000);
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('toast-notif');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-24', 'opacity-0');
+    }
+  </script>
 </body>
 </html>
-
-
